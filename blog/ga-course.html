@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Curso Google Analytics</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Omar Gonzáles Díaz" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Curso Google Analytics
+## </br>
+### Omar Gonzáles Díaz
+### 24/04/2017
+
+---
+
+
+
+
+background-image: url(https://developers.google.com/analytics/images/terms/logo_lockup_analytics_icon_vertical_black_2x.png)
+background-size: contain
+
+???
+
+Image credit: [Wikimedia Commons]()
+
+---
+class: center, middle
+
+# Curso de Google Analytics
+
+
+---
+class: inverse, center, middle
+
+# Introducción
+
+---
+
+# Módulo 1: Estructura de Google Analytics
+
+
+
+![img](img\\estructura-ga.png)
+
+
+---
+
+# Módulo 1: Estructura de Google Analytics
+
+
+- **Cuenta:**
+Dependiendo de la estructura de la empresa pueden existir una o múltiples cuentas. En casi todos los casos solo es necesario una cuenta para contener todas las propiedades digitales de una organización. Si la organización es muy grande se puede considerar la creación de una o más de una cuenta.
+
+
+
+- **Propiedad:**
+Una propiedad es una web o una aplicación que cuenta con un dominio o subdominio (namespace en el caso de aplicaciones móviles). No se deben crear propiedades para medir la interacción en carpetas individuales de un dominio, salvo algunas excepciones, tales como limitaciones a nivel técnico o restricciones de acceso a la información. Límite: 50 propiedades por cuenta.
+
+
+
+- **Vista:**
+Una nueva propiedad, crea por defecto una vista principal. Esta vista no debe ser alternada y debe mantenerse como vista por defecto, sin ningún tipo de filtro u objetivos. Esta vista servirá como backup de la información en caso se produzca algún error en la configuración de Google Analytics. Una vez que se ha suprimido una vista dispone de un plazo de 35 días para restaurarla. Límite 25 vistas por propiedad.
+
+
+
+
+---
+
+# Módulo 1: Dimensiones y métricas
+
+-**Dimensión:**
+Las dimensiones son atributos de los datos (países de procedencia de los usuarios, dispositivo móvil de la visita, etc).
+
+-**Métrica:**
+Las métricas son datos numéricos (cantidad de sesiones, cantidad de páginas vistas, etc).
+
+
+![Caption for the picture.](img\\dim-metrics.png)
+
+
+---
+
+
+# Módulo 1: Dimensiones y métricas
+
+Un buen analista debe saber combinar las dimensiones con las métricas pra obtener insights más valiosos.
+
+Por ejemplo, si tenemos la dimensión "Ciudad", podríamos cominarla con la métrica "Sesiones"  y así averigüar de qué ciudad tenemos más visitas a nuestra página web.
+
+
+_Tipos de métricas:_
+
+![Métricas](img\\metrics.png)
+
+
+
+---
+
+
+# Módulo 1: Definición de objetivos y métricas de negocio
+
+
+Los objetivos miden que tanto tu sitio o APP sirven para alcanzar las metas que nos autoimpones a nivel de negocio. 
+
+Un objetivo (Goal en inglés) representa una un tipo de actividad completa, llamada también __conversión__, que contribuye al éxito de tu negocio.
+
+
+Ejemplos: a) realizar una compra (en un ecommerce), b) completar el nivel de un juego, c) completar y enviar un formulario en una campaña que busca generar bases de datos de usuarios.
+
+
+---
+
+
+# Módulo 1: Definición de objetivos y métricas de negocio
+
+
+![img](img\\tipodeeventos.png)
+
+
+
+
+---
+
+
+# Módulo 1: Definición de objetivos y métricas de negocio
+
+
+Botón simple sin código de __evento__ de Google Analytics.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;This is a title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Botón simple que dice ¡Hola!&lt;/p&gt;
+    &lt;button id="spanish" type="submit"&gt;¡Hola!&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+
+---
+
+
+# Módulo 1: Definición de objetivos y métricas de negocio
+
+Tracking de botón con código de __evento__ de Google Analytics.
+
+
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;This is a title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Botón simple que dice ¡Hola!&lt;/p&gt;
+    &lt;button id="spanish" type="submit"
+    onClick="ga('send','event', 'botones-home','click-btn-hola', 'btn-hola');"&gt;¡Hola!&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+```
+
+
+---
+
+
+# Módulo 1: Extracción y análisis de datos
+
+Por ahora nos vamos a centrar en la extracción de los datos desde la misma interface de Google Analytics. Esta es la forma más básica para crear reportes, aunque también nos limita al momento de querer combinar ciertas métricas y dimensiones. Además de que la data que extraemos a través de este método no es el 100% de la data real (sino es un sampling que GA ofrece a la mayoría de usuarios).
+
+
+
+![img](img\\extraccion-data1.png)
+
+
+---
+
+
+# Módulo 1: Extracción y análisis de datos
+
+
+Sin embargo, existe otro método avanzado para extraer datos desde el API de Google Analytics. Y este método tiene muchas ventajas sobre el método tradicional.
+
+
+Ventajas de extraer datos a través del API de Google Analytics:
+
+1. Extraer datos y manejar varias propiedades/websites de una sola vez.
+2. Combinar data de Google Analytics con data de otras fuentes.
+3. Obtener información en base a tus propias necesidades.
+4.Programar reportes automáticos de Google Analytics API a Excel, BigQuery, etc.
+5. Automatizar Dashboards y creación de reportes.
+6. Reducir el *data sampling* a través de llamadas parciales al API.
+7. Simplificar la extracción de la data, integración y visualización.
+8. ...
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

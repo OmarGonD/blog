@@ -1,0 +1,275 @@
+/* Full widht document : para htlm_output PANDOC*/
+/*body  {
+max-width: 940px;
+margin-right: 60px;
+}
+
+*/
+body {
+    
+   max-width: 940px;
+   margin-top: 52px;
+   margin-left: 34px;
+   margin-right: 84px;
+   
+}
+
+
+nav.navConstricted { 
+    max-width: 940px; 
+}
+
+/* Full widht document */
+
+
+/*  Fuente Helvetiva   
+body{
+  font-family: Verdana;
+  font-size: 16pt;
+}
+/* Headers 
+h1 {
+   font-weight:bold;
+}
+
+
+
+
+header {
+	background:#2c3e50;
+	color:#fff;
+}
+
+/*.main {
+	background:#fff;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.color1 {
+	background: #F5F5F5;
+}
+
+aside {
+	/*background-color:#fff;
+}
+
+
+.codigo {
+    background-color: #EEEEEE;
+}
+
+footer {
+
+}
+
+*/
+.align-inline {
+    display: inline-block;
+  }
+
+
+.align-block {
+    display: block;
+}
+
+
+/*
+.top5 { 
+    margin-top:5px;
+
+}
+
+
+.top7 {
+    margin-top:7px;
+}
+
+*/
+
+
+
+.top10 {
+    margin-top:10px;
+}
+
+
+.top15 {
+    margin-top:15px;
+}
+
+.top17 {
+    margin-top:17px;
+}
+
+.top30 {
+    margin-top:30px;
+}
+
+
+.top40 {
+    margin-top:40px;
+}
+
+
+.top50 {
+    margin-top:50px;
+}
+
+.top60 {
+    margin-top:60px;
+}
+
+
+
+
+/*
+
+.bottom10 {
+    margin-bottom: 10px;
+}
+
+
+.bottom20 {
+    margin-bottom: 20px;
+}
+
+.bottom30 {
+    margin-bottom: 30px;
+}
+
+.bottom40 {
+    margin-bottom: 40px;
+}
+
+
+.bottom50 {
+    margin-bottom: 50px;
+}
+
+
+*/
+
+
+.size10 {
+   
+  
+    height: 10%;
+    
+}
+
+
+.size15 {
+   
+    width:15%;
+    height: 15%;
+    
+}
+
+
+
+
+
+.size20 {
+   
+    width:20%; 
+    height: 20%;
+    
+}
+
+
+.size30 {
+   
+    width:30%;  = 100% - 2*5% padding 
+    height: 30%;
+    
+}
+
+
+.size40 {
+   
+    
+    height: 40%;
+    
+}
+
+
+.size50 {
+   
+   
+    height: 50%;
+    
+}
+
+.size60 {
+   
+   
+    height: 60%;
+    
+}
+
+
+.size70 {
+   
+   
+    height: 70%;
+    width: 70%;
+    
+}
+
+
+
+.size80 {
+   
+    height: 80%;
+    width: 80%;
+    
+}
+
+
+/*
+.height100 {
+    height: 100%;
+}
+
+.right20 {
+    margin-right: 20px;
+}
+
+.left20 {
+    margin-left: 20px;
+}
+
+*/
+
+.image_off, #yo:hover .image_on{
+   display:none
+}
+.image_on, #yo:hover .image_off{
+   display:block
+}
+
+
+/*
+.img_wrap {
+
+    float: right;
+    margin: 0 20px 20px 0;
+}
+
+p {
+    text-align: justify;
+    text-indent: 2em;
+}
+
+
+#container{
+
+    background: yellow;
+}
+
+
+#floated{
+    float: right;
+    
+}

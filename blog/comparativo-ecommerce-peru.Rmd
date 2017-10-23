@@ -1,0 +1,1467 @@
+---
+title: "Análisis de los Ecommerce en el Perú"
+author: ""
+date: "16 de mayo de 2016"
+output: 
+  html_document:
+    includes:
+      in_header: ../header.html
+      before_body: ../doc_prefix.html
+    code_folding: hide
+---
+
+<br>
+<br>
+
+## Revisión de la categoría televisores de los 3 ecommerce más importantes del país
+
+<br>
+
+La industria de los televisores en el Perú moverá [un billón de soles este 2016 (S/.1,248,000,000)](http://gestion.pe/empresas/televisores-ultra-hd-representaran-25-mercado-2016-2151154), según estima Arturo Madrid, Sales Director en LG Electronics Perú.
+Si bien no tenemos datos de qué porcentaje de estas ventas, serán parte de la venta de televisores a través de las tiendas online, creemos que analizando los productos ofertados en base a tres factores: a) variedad, b) tamaño y c) precios de sus productos, nos dará una idea clara de la estrategia que cada E-Commerce utiliza para quedarse con la mayor parte posible de las ventas de estos productos.
+
+<br>
+<br>
+
+##Sobre los datos
+
+<br>
+
+
+Creemos que al momento de mostrar algún tipo de investigación es necesario ser lo más transparentes posibles. Por lo que en las próximas semanas subiré el código empleado para obtener los datos aquí mostrados. De este modo, todos los pasos aquí utilizados podrán ser reproducidos. Y de esta manera, los que deseen podrán aplicar estas técnicas para en otros casos.
+
+También es importante aclarar que la cantidad de televisores totales que reportamos aquí no es la misma que encontrarán en los mismos E-Commerce. Esto porque se ha hecho una depuración de productos que realmente no son televisores pero se encuentran en esta categoría.
+
+Por ejemplo, en la sección televisores de Linio encontramos un total de 391 productos; sin embargo solo 179 son televisores (ver Anexos).
+
+ Estos son los productos que se encontraron en la sección televisores, pero que no son televisores:
+
++ Louiwill: focos y otros.
++ Google Android: productos de Google que no son televisores.
++ Portátiles: televisores portátiles (para esta investigación no fueron considerados).
++ Cables USB, HDMI: relacionados a esta categoría pero no son televisores.
+
+**Sábado 14 de mayo del 2016: La data fue extraida directamente de los E-commerce de forma programática el 14/05/2016. Pueden descargar un CSV con los datos** [aquí](https://www.dropbox.com/s/wzbl1a82i4s4zq2/2016-05-14-total-tvs.csv?dl=0)
+
+
+
+**O pueden buscar productos directamente en esta** [tabla con filtros por columna](#tabla) ;)
+
+<br>
+
+
+##Anexos
+
+<br>
+
+
+Anexo 1: No todos los productos de la sección televisores de Linio corresponden a esta categoría, para más detalle ver "anexo 1" [aquí](#anexo1)
+
+<br>
+
+
+#Total de Televisores por Ecommerce
+
+<br>
+
+
+El total de TVs en los 3 Ecommerces es de 298. Linio cuenta con más productos: 176 (59.06%).La diferencia es bastante notoria en relación a los otros 2 ecommerce. Ripley cuenta con 74 tvs (24.86%), mientras que Saga Falabella (Falabella en adelante) solo con 48 (16.11%).
+
+<br>
+<br>
+
+![](..\\images\\rsl\\tvs-cantidad.jpg)
+
+<br>
+
+
+#Pulgadas vs precio
+
+<br>
+
+
+Este gráfico nos permite observar la relación entre el tamaño de los televisores (pulgadas) y su precio. Si bien la relación entre estas 2 variables es directamente proporciional, encontramos que hay productos que tienen el mismo tamaño, pero diferente precio. Esto se debe a que el valor de venta no solo depende del tamaño sino de otras características como la tecnología (Ultra HD, HD, 3D, etc).
+
+
+<br>
+
+
+##Algunos highlights que nos permite observar este gráfico
+
+<br>
+
+
+**Según tamaño (pulgadas):**
+
+
+
++ Falabella: el máximo tamaño que encontramos es de 75" (1 TV: LG LED 75" Ultra HD a S/.10,999.00). Luego encontramos 8 de 65" y 11 TVs de 55".
++ Linio: la mayoría de TVs en este ecommerce están entre las 32 y 55 pulgadas: 32" (40 TVs), 55" (21 pulgadas), 40" (20 TVs), 48" (19 TVs), 43" (17 TVs), 49" (17 TVs). El máximo tamaño que encontramos aquí es de 65" (5 TVs).
++ Ripley: tiene los TVs más grandes: Samsung Smart TV LED UHD de 75" a S/.9,999.00; Sharp Smart TV LED Full HD 70" a S/. 6,499.00
+
+
+<br>
+
+
+**Según precio:**
+
++ Linio tiene el TV más caro: LG OLED TV Ultra HD 4k curvo 65" 3D Smart Webos 2.0 a S/.24,999.00.
++ Falabella tiene el 2 TV más caro: LG LED Curvo 65eg9600 a S/.19,999.00
++ Ripley tiene el 3º TV más caro: LG Smart TV Curvo 65" OLED UHD 3D a S/.17,900.00.
+
+<br>
+
+
+![](..\\images\\rsl\\tvs-pulgadas-precios.jpg)
+
+
+<br>
+
+
+#Televisores según su rango de precio
+
+
+Los 3 ECommerce ofrecen más productos del rango de precios S/500.00 a S/.1,500.00 (total 117 TVs dentro de este rango, 39% del total de TVs. Esto, a mi parecer, puede deberse a que: a) los productos que están en este rango ofrecen un mayor rango de ganancia; o b) debido a que el precio dentro de este rango no es tan alto (máx S/.1,500.00), se vende una gran cantidad de TVs y esto genera una cantidad considerable de ganancia (ganancia por volumen de venta).
+
+<br>
+
+
+![](..\\images\\rsl\\tvs-rango-precios.jpg)
+
+
+<br>
+
+
+#Variación % de descuentos según rango de precio
+###¿Quién ofrece mejores descuentos?
+
+<br>
+
+
+Los descuentos varían por Ecommerce y por rango de precios de los televisores. A continuación revisaremos cómo varían los descuentos según estas 2 varibales.
+
+
+<br>
+
+
+##Ripley
+
+<br>
+
+
+En el rango de "> S/.4,500.00" tenemos que en promedio el % de descuento es de 25%. En promedio, es en este rango donde encontramos los mejores descuentos. El mayor descuento en este rango de precios es de 36%, para el TV: LG Smart TV 60" UHD 3D 60UF8500, que pasó de S/.7,999.00 a S/.5,099.00, una reducción de S/.2,900.00 soles.
+
+En el rango de S/.500.00 a S/.1,500.00 tenemos una gran variación de descuentos. El mayor descuento se encuentra en este rango y es de 47.39%, para el TV: Panasonic TV LED Full HD 42" TC-42as610; que en un primer momento costaba S/.1,899.00 soles y ahora cuesta S/.999.00
+
+
+<br>
+
+
+![](..\\images\\rsl\\r-tvs-porcentajes.jpg)
+
+
+<br>
+
+
+##Sagafalabella
+
+<br>
+
+
+Saga falabella los mejores descuentos se dan en el rango de S/.2,500.00 a S/.3,500.00 soles. El descuento promedio en este rango es de 30%. Por ejemplo, el TV Sony LED 49" xbr-49x835c costó en un primer momento S/.4,999.00 pero ahora cuesta S/.3,499.00. Esto representa un descuento del 30.1%
+
+En este rango el mayor descuento es de 37.51%, para el TV LG LED 55" 55uf6800 WEB: de S/.4,799.00 a S/.2,999.00
+
+
+<br>
+
+
+![](..\\images\\rsl\\s-tvs-porcentajes.jpg)
+
+
+<br>
+
+
+##Linio
+
+
+<br>
+
+
+Este ecommerce se aprecia en promedio los mejores descuentos se encuentran en el rango "menor de S/500.00". Sin embargo, esto se debe a que si asignamos un descuento de solo 100 soles esto representa un descuento del 20%.
+
+En realidad es en el rango de "S/.1,500.00 a S/.2,500.00" donde se encuentran los mejores descuentos. El promedio es de 20%. Sin embargo, como se aprecia en la imagen tenemos varios casos en los que el porcentaje del descuento supera el promedio; el descuento porcentual más alto en este rango es de 52.01%, para el televisor: Samsung TV Curved Smart Ultra HD Tizen, que pasó de costar S/.4,999.00 a S/.2,399.00 (52.01%)
+
+En el rango de "más de S/.4,500.00" encontramos también un outlier: un descuento de 33.34%, que pertenece al TV Samsung LED 4K Ultra HD 55" 55f9000.
+
+
+<br>
+
+
+![](..\\images\\rsl\\l-tvs-porcentajes.jpg)
+
+
+
+
+#Marcas de TV por rango de precio
+###¿Qué marcas dominan en la gama baja, media y alta?
+
+<br>
+
+
+##Ripley
+
+
+<br>
+
+
+En la gama alta (mayor a S/. 4,500) encontramos 4 marcas de televisores: Sony, Samsung, LG y Sharp. Esta última es una marca totalmente desconocida para mí, y fue toda una sorpresa encontrarla aquí.
+
+Nota: después de Google la marca "Sharp" descubrí que, al menos en USA, es reconocida como una marca de TVs buena, pero no premium. Y que en el 2015 pasó por una reestructuración corporativa que busca hacer más conocidos sus productos, esperemos que lo logren.
+
+
+
+**Enlaces sobre la marca Sharp**
+
+Google: "Is Sharp a good TV brand?
+
++ [Sharp europe the rise fall and return of a great tv brand](http://televisions.reviewed.com/features/sharp-europe-the-rise-fall-and-return-of-a-great-tv-brand)
+
++ [Is Sharp a good TV Brand?](https://answers.yahoo.com/question/index?qid=20090604225348AAUTuMG)
+
+<br>
+
+
+![](..\\images\\rsl\\r-tvs-rango-precios.jpg)
+
+<br>
+
+
+#Falabella
+
+<br>
+
+
+En Falabella encontramos en total 5 marcas: AOC, LG, Panasonic, Samsung, SONY. No son muchas marcas, por lo que la variedad se centra más en los tamaños y características de estas marcas.
+
+
+<br>
+
+
+![](..\\images\\rsl\\s-tvs-rango-precios.jpg)
+
+
+
+#Linio
+
+<br>
+
+
+En Linio encontramos en total 16 marcas, es el E-Commerce con mayor variedad de productos. En general, existe una gran variedad de marcas para los rangos de precios más bajos (menos de S/.500.00 soles y S/.500.00 y S/.1,500).
+
+Solo en el rango "S/.500.00 y S/.1,500" encontramos 13 marcas de TVs. Estas son: "AOC", "Panasonic", "Samsung", "Imaco", "Olitec", "Sony", "LG", "NEX", "Daewoo", "Blackline", "Haier", "Hisense", "Miray"
+
+
+<br>
+
+
+![](..\\images\\rsl\\l-tvs-rango-precios.jpg)
+
+
+
+
+#Tienda Online vs Offline
+
+
+<br>
+
+
+También se realizó un comparativo entre lo ofrecido en las tiendas online y offline. Y, con un poco de sorpresa, encontramos lo siguiente:
+
+En los Ecommerce encontramos menos variedad que en las tiendas físicas: siendo que en Internet no tenemos límitis de espacio físico, ¿no sería más conveniente tener mayor variedad?
+En la mayoría de los casos los precios de los Ecommerce y en las tiendas físicas son los mismos (incluidos los descuentos). Creía que por temas logísticos (principalmente espacio para la exposición de estos productos) encontraría mejores precios en las tiendas online; sin embargo, esto no es así.
+
+
+**Los vendedores:**
+
+También encontramos otro factor determinante: los vendedores. Ellos pueden cambiar totalmente el cierre de una venta. Muchos clientes van a las tiendas físicas con la idea de comprar un televisor de la marca "x", con ciertas características; pero son los vendedores quienes terminan por convencerlos que la marca "y" ofrece las mismas características a un precio menor. Puede que se traten de las mismas características, pero los vendedores tienen motivos extrínsecos para motivar a los clientes a comprar ciertas marcas (mayores bonos por cada venta, etc). Y adicionalmente pueden llegarte a ofrecer "regalos adicionales": teclados para SmartTVs, lentes 3D, etc., lo que no sucede en las tiendas online analizadas.
+
+<br>
+
+
+![](..\\images\\rsl\\hisense50.jpg)
+
+<br>
+
+
+![](..\\images\\rsl\\samsung60.jpg)
+
+<br>
+
+
+
+##Comentarios finales: 
+        
+El análisis de esta categoría nos ha llevado a repensar la forma en la que se comercian los mismos productos a través de canales digitales y análogos. Encontramos datos interesantes que a simple vista, por la cantidad de productos, pueden pasar desapercibidas para la mayoría (temas de marcas, precios, puntos de venta, etc).
+        
+<br>
+<br>
+
+#Anexos
+
+<br>
+
+
+##Anexo 1: Total Tvs en Linio.com.pe
+
+<br>
+
+
+En Linio, sección televisores encontramos otro tipo de productos. La página muestra un total de 391 productos en la sección televisores, pero en realidad son solo 176.
+
+<br>
+
+
+<a name="anexo1">
+
+![](..\\images\\rsl\\linio-televisores-page5.png)
+
+</a>
+
+
+<br>
+<br>
+
+
+##Anexo 2: Tabla dinámica con filtro por columnas
+
+<a name="tabla">
+</a>
+
+
+
+```{r}
+
+tvs <- read.csv("D:\\RCoursera\\r-s-l\\2016-05-14-total-tvs.csv")
+
+DT::datatable(tvs,filter = list(
+  position = 'top', clear = FALSE
+), options = list(autoWidth = TRUE), class = 'cell-border stripe order-column hover', rownames = F)
+```
+
+
+<br>
+
+
+#Código:
+
+Comparto la idea de que toda investigación realizada debe ser presentada en su totalidad, para que otros investigadores puedan reproducir los mismos resultados. Solo así se podrá avanzar en conjunto como investigadores. 
+
+Por esta razón, comparto aquí el código empleado en este estudio:
+
+
+<br>
+
+
+
+
+```{r eval=FALSE}
+
+library(dplyr)
+library(reshape2)
+library(gridExtra)
+library(grid)
+library(ggplot2)
+library(scales)
+
+
+setwd("D:\\RCoursera\\r-s-l")
+
+ripley.tv <- read.csv("D:\\RCoursera\\Ripley\\2016-05-14-r-tvs.csv", stringsAsFactors = F,
+                      na.strings = "")
+
+
+
+saga.tv <- read.csv("D:\\RCoursera\\Saga_falabella\\2016-05-14-s-tvs.csv",
+                    stringsAsFactors = F)
+
+
+
+
+linio.tv <- read.csv("D:\\RCoursera\\Linio\\2016-05-14-l-tvs.csv",
+                     stringsAsFactors = F)
+
+
+
+
+
+######################################################
+### Saga cambiando nombre de columnas para que ###### 
+### hagan match con los otros data frames ############
+######################################################
+
+
+
+# Precio Internet tiene que llamarse "Precio Antes"
+# Precio Unica tiene que llamarse "Precio Actual"
+
+colnames(saga.tv)[4] <- "precio.antes"
+colnames(saga.tv)[5] <- "precio.actual"
+
+
+
+
+
+######################################################
+######################################################
+############# TVs: Unir 3 dataframes  ################
+######################################################
+######################################################
+
+
+
+
+
+### Unión de los 3 dfs
+
+tvs <- rbind(ripley.tv, saga.tv,
+             linio.tv)
+
+
+
+### as numeric
+
+
+
+
+
+tvs$marca <- trimws(tvs$marca, which = c("both"))
+tvs$producto <- trimws(tvs$producto, which = c("both"))
+tvs$precio.antes <- trimws(tvs$precio.antes, which = c("both"))
+tvs$precio.actual <- trimws(tvs$precio.actual, which = c("both"))
+tvs$pulgadas <- trimws(tvs$pulgadas, which = c("both"))
+
+
+#Linio es el que tiene más variedad de productos
+
+### En realidad Saga termina siendo el que ofrece menos 
+### productos. Será una estrategia para mostrar que cuentan con un
+### mayor surtido de TVs. La teoría dice que entre menos elecciones tenga
+### el consumidor, mejor decidirá.
+
+#¿Por qué los ids son diferentes, si ya quitamos los duplicados?
+
+tvs$precio.antes <- as.numeric(tvs$precio.antes)
+tvs$precio.actual <- as.numeric(tvs$precio.actual)
+tvs$pulgadas <- as.numeric(tvs$pulgadas)
+
+
+### Linio no tiene mucha información en Precio Antes
+
+
+
+
+### Rango de precios - basados en Ripley.com.pe 
+
+
+tvs  <- tvs  %>%
+        mutate(rangos = ifelse(precio.actual <= 500, "< S/.500",
+                               ifelse(precio.actual > 500 & precio.actual <= 1500,
+                                      "S/.500 - S/.1500",
+                                      ifelse(precio.actual > 1500 & precio.actual <= 2500,"S/.1500 - S/.2500",
+                                             ifelse(precio.actual > 2500 & precio.actual <= 3500,"S/.2500 - S/.3500",
+                                                    ifelse(precio.actual > 3500 & precio.actual <= 4500,"S/.3500 - S/.4500",
+                                                           "> S/.4,500"))))))
+
+
+
+tvs$rangos <- factor(tvs$rangos, levels = c("< S/.500",
+                                                       "S/.500 - S/.1500",
+                                                       "S/.1500 - S/.2500",
+                                                       "S/.2500 - S/.3500",
+                                                       "S/.3500 - S/.4500",
+                                                       "> S/.4,500"),
+                          ordered = T)
+
+###
+
+
+
+
+
+# tvs$marca <- factor(tvs$marca, levels = c("hisense","nex", "continental",
+#                                                       "haier", "aoc",
+#                                                       "sharp", "imaco","panasonic","sony",
+#                                                       "lg", "samsung", "daewoo", "hyundai"),
+#                           ordered = T)
+
+###
+
+
+### Reemplazar nombres reales de Ecommerce por nombres clave
+
+# Ripley <- A
+# Saga <- B
+# Linio <- C
+
+# 
+# 
+# tvs$ecommerce <- gsub("ripley", "a", tvs$ecommerce)
+# tvs$ecommerce <- gsub("falabella", "b", tvs$ecommerce)
+# tvs$ecommerce <- gsub("linio", "c", tvs$ecommerce)
+
+
+
+tvs.cantidad <- tvs  %>%
+        group_by(ecommerce) %>%
+        summarise(cantidad = length(marca))
+
+
+
+# tvs.cantidad$ecommerce <- factor(tvs.cantidad$ecommerce, levels = c("c",
+#                                                           "a",
+#                                                           "b"),
+#                     ordered = T)
+
+
+
+tvs.cantidad$ecommerce <- factor(tvs.cantidad$ecommerce, levels = c("linio",
+                                                                    "ripley",
+                                                                    "falabella"),
+                                 ordered = T)
+
+
+
+
+tt1 <- "Ecommerce con más TVs"
+stt1 <- "Linio, Ripley y Saga Falabella (Falabella) son los 3 principales ecommerce del Perú.\n"
+cptn <- "\nomargonzalesdiaz.com | Data Analyst"
+
+
+
+
+ggplot(tvs.cantidad, aes(x=ecommerce, y= cantidad)) + 
+        geom_bar(stat = "identity", width = .7, fill= "#1F96FF") +
+        #facet_grid(~ ecommerce) +
+        labs(title = "Ecommerce con más TVs\n",
+             x = "", y = "") +
+        theme(axis.text.x = element_text(colour="grey10",size=22,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey10",size=20,,hjust=0,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey40",size=6,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey40",size=6,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=2,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16)) +
+        geom_text(aes(label=cantidad), vjust=-0.25, size = 8) +
+        ylim(0, 220) +
+        labs(title = tt1, subtitle = stt1, caption = cptn,
+             x = "", y = "")
+
+
+
+
+ggsave(file="tvs-cantidad.jpg", width = 12, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+### 
+
+
+tvs.rangos <- tvs %>%
+        group_by(ecommerce, rangos) %>%
+        summarise(cantidad = length(rangos))
+
+
+# 
+# tvs.rangos$ecommerce <- factor(tvs.rangos$ecommerce, levels = c("c",
+#                                                                 "a",
+#                                                                 "b"),
+#                                ordered = T)
+
+unique(tvs.rangos$ecommerce)
+
+
+tvs.rangos$ecommerce <- factor(tvs.rangos$ecommerce, levels = c("linio",
+                                                                    "ripley",
+                                                                    "falabella"),
+                                 ordered = T)
+
+
+
+
+
+tvs.rangos$rangos <- factor(tvs.rangos$rangos, levels = c("< S/.500",
+                                            "S/.500 - S/.1500",
+                                            "S/.1500 - S/.2500",
+                                            "S/.2500 - S/.3500",
+                                            "S/.3500 - S/.4500",
+                                            "> S/.4,500"),
+                     ordered = T)
+
+
+
+# To use for fills, add
+
+###
+
+
+tt2 <- "Cantidad de TVs por rango de precios"
+stt2 <- "\n"
+
+
+
+ggplot(tvs.rangos, aes(x = rangos, y = cantidad, fill = ecommerce)) +
+        geom_bar(stat = "identity") + 
+        scale_fill_manual("ecommerce",
+                values = c("linio" = "#FF5500","ripley" = "#802D69","falabella" = "#BED800")) +
+        facet_wrap(~ ecommerce, nrow = 3) +
+        coord_flip() + 
+        theme(axis.text.x = element_text(colour="grey10",size=14,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey10",size=16,,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey40",size=16,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey40",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4, face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.title = element_text(colour="grey40", size=16, face="bold"),
+              legend.text = element_text(colour="grey10", size=16, face="bold"),
+              strip.text.x = element_text(size = 20, angle = 0),
+              legend.position = "none") +
+        geom_text(aes(label=cantidad), hjust=-0.25, size = 6) +
+        ylim(0, 125) +
+        labs(title = tt2, subtitle = stt2, caption = cptn,
+                 x = "", y = "")
+
+
+ggsave(file="tvs-rango-precios.jpg", width = 12, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+####
+
+
+
+
+###
+
+
+
+
+
+
+### Gráficos individuales por ecommerce ###
+
+### ripley ###
+
+
+tvs.ripley <- tvs[tvs$ecommerce == "ripley",]
+
+tvs.ripley.porcentajes <- tvs.ripley  %>%
+        group_by(rangos, marca) %>%
+        summarise(cantidad.marca = length(marca)) %>% 
+        mutate(porcentaje = cantidad.marca/sum(cantidad.marca))
+
+
+tt3 <- "Ripley.com.pe % marcas de tvs por rango de precio"
+stt3 <- "\n"
+
+
+
+
+
+
+ggplot(tvs.ripley.porcentajes, aes(x=rangos, y= porcentaje ,fill=marca)) + 
+        geom_bar(stat = "identity", width = .7) +
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(vjust=2, size = 24,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "top",
+              legend.box = "horizontal",
+              legend.title=element_blank(),
+              legend.text=element_text(size=18)) +
+        scale_y_continuous(labels=percent) +
+        scale_fill_manual(
+                values = c("haier" = "#8DD3C8","sony" = "#003366","panasonic" = "#FCB462",
+                           "samsung" = "#7ec0ee", "lg" = "#A21420",
+                           "aoc" = "#9DCC27", "sharp" = "#986FE8")) +
+        labs(title = tt3, subtitle = stt3, caption = cptn,
+             x = "", y = "")
+
+
+
+
+
+ggsave(file="r-tvs-rango-precios.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+
+
+### Ripley - BoxPlot
+
+
+
+
+
+tvs.ripley.porcentajes <- tvs.ripley %>%
+        group_by(marca, precio.antes, precio.actual) %>%
+        mutate(dif.precios = precio.antes - precio.actual,
+               dif.porcentual = round(100*dif.precios/precio.antes,2))
+
+
+# 
+# means.linio <- aggregate(dif.porcentual ~ rangos , tvs.linio.porcentajes, mean)
+# means.linio$dif.porcentual <- round(medians$dif.porcentual,0)
+# 
+# max.percentage <- aggregate(dif.porcentual ~ rangos , ripley.tv.precios, max)
+# max.percentage$dif.porcentual <- round(max.percentage$dif.porcentual,0)
+
+
+
+
+tt4 <- "Ripley - variación % descuentos según rango de precios"
+stt4 <- "\n"
+
+
+
+
+
+
+a <- ggplot(tvs.ripley.porcentajes, aes(factor(rangos), dif.porcentual))
+
+
+#p + geom_boxplot(fill = "white", colour = "#3366FF")
+a + geom_boxplot(aes(colour = rangos), outlier.colour = "red", outlier.shape = 1, outlier.size = 4) + 
+         theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "none") +
+        labs(title = tt4, subtitle = stt4, caption = cptn,
+             x = "", y = "")
+ 
+               
+
+
+
+ggsave(file="r-tvs-porcentajes.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+
+
+
+
+
+
+### falabella ###
+
+
+
+tvs.falabella <- tvs[tvs$ecommerce == "falabella",]
+
+tvs.falabella.porcentajes <- tvs.falabella  %>%
+        group_by(rangos, marca) %>%
+        summarise(cantidad.marca = length(marca)) %>% 
+        mutate(porcentaje = cantidad.marca/sum(cantidad.marca))
+
+
+
+
+tt5 <- "Sagafalabella - % marcas de tvs por rango de precios"
+stt5 <- "\n"
+
+
+
+ggplot(tvs.falabella.porcentajes, aes(x=rangos, y= porcentaje ,fill=marca)) + 
+        geom_bar(stat = "identity", width = .7) +
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(vjust=2, size = 24,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "top",
+              legend.box = "horizontal",
+              legend.title=element_blank(),
+              legend.text=element_text(size=18)) +
+        scale_y_continuous(labels=percent) +
+        scale_fill_manual(
+                values = c("hisense" = "#F39EF7","sony" = "#003366","panasonic" = "#FCB462",
+                           "samsung" = "#7ec0ee", "lg" = "#A21420",
+                           "aoc" = "#9DCC27", "sharp" = "#BEBBDA")) +
+        labs(title = tt5, subtitle = stt5, caption = cptn,
+             x = "", y = "")
+
+
+
+ggsave(file="s-tvs-rango-precios.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+### Falabella BoxPlot
+
+
+
+
+tvs.falabella.porcentajes <- tvs.falabella %>%
+        group_by(marca, precio.antes, precio.actual) %>%
+        mutate(dif.precios = precio.antes - precio.actual,
+               dif.porcentual = round(100*dif.precios/precio.antes,2))
+
+
+# 
+# means.linio <- aggregate(dif.porcentual ~ rangos , tvs.linio.porcentajes, mean)
+# means.linio$dif.porcentual <- round(medians$dif.porcentual,0)
+# 
+# max.percentage <- aggregate(dif.porcentual ~ rangos , ripley.tv.precios, max)
+# max.percentage$dif.porcentual <- round(max.percentage$dif.porcentual,0)
+
+
+
+tt6 <- "Saga Falabella - variación % descuentos según rango de precios"
+stt6 <- "\n"
+
+
+
+
+b <- ggplot(tvs.falabella.porcentajes, aes(factor(rangos), dif.porcentual))
+
+b + geom_boxplot(aes(colour = rangos), outlier.colour = "red", outlier.shape = 1,
+                 outlier.size = 4) + 
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4, face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "none") +
+        labs(title = tt6, subtitle = stt6, caption = cptn,
+             x = "", y = "")
+
+
+
+ggsave(file="s-tvs-porcentajes.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+
+
+
+
+
+
+
+### linio ###
+
+
+
+tvs.linio <- tvs[tvs$ecommerce == "linio",]
+# 
+# tvs.linio.porcentajes <- tvs.linio  %>%
+#         group_by(rangos, marca) %>%
+#         summarise(cantidad.marca = length(marca)) %>% 
+#         mutate(porcentaje = cantidad.marca/sum(cantidad.marca))
+# 
+
+
+
+
+
+tvs.linio.porcentajes <- tvs.linio  %>%
+        group_by(rangos, marca) %>%
+        summarise(cantidad.marca = length(marca)) %>% 
+        mutate(porcentaje = cantidad.marca/sum(cantidad.marca))
+
+
+
+
+
+
+tt7 <- "Linio - % marca de tvs por rango de precios"
+stt7 <- "\n"
+
+
+
+
+
+ggplot(tvs.linio.porcentajes, aes(x=rangos, y= porcentaje ,fill=marca)) + 
+        geom_bar(stat = "identity", width = .7) +
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(vjust=2, size = 24,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "top",
+              legend.box = "horizontal",
+              legend.title=element_blank(),
+              legend.text=element_text(size=18)) +
+        scale_y_continuous(labels=percent) +
+        scale_fill_manual(
+                values = c("hisense" = "#EE6CF5","sony" = "#003366","panasonic" = "#FCB462",
+                           "samsung" = "#7ec0ee", "lg" = "#A21420", "altron" = "#E6981C",
+                           "aoc" = "#9DCC27", "sharp" = "#BEBBDA", "olitec" = "#3A76D6",
+                           "imaco" = "#00C18C", "nex" = "#DE8D00", "haier" = "#01BA38",
+                           "continental" = "#BD9C00", "daewoo" = "#968363", "king master" = "#EDED6F",
+                           "blackline" = "#5BD4BA", "hyundai" = "#01B3EF", "miray" = "#ED6F87",
+                           "royal" = "#5A9AED")) +
+        labs(title = tt7, subtitle = stt7, caption = cptn,
+             x = "", y = "")
+
+
+
+
+ggsave(file="l-tvs-rango-precios.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+### Linio BoxPlot
+
+
+
+### Linio
+
+
+
+
+tvs.linio.porcentajes <- tvs.linio %>%
+        group_by(marca, precio.antes, precio.actual) %>%
+        mutate(dif.precios = precio.antes - precio.actual,
+               dif.porcentual = round(100*dif.precios/precio.antes,2))
+
+
+
+
+
+tt8 <- "Linio - variación % descuentos según rango de precios"
+stt8 <- "\n"
+
+
+
+l <- ggplot(tvs.linio.porcentajes, aes(factor(rangos), dif.porcentual))
+
+
+
+l + geom_boxplot(aes(colour = rangos), outlier.colour = "red", outlier.shape = 1,
+                 outlier.size = 4) + 
+        labs(title = tt8,
+             x = "\nrango de precios", y = "descuentos en %\n") +
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "none") +
+        labs(title = tt8, subtitle = stt8, caption = cptn,
+             x = "", y = "")
+
+
+
+
+
+
+ggsave(file="l-tvs-porcentajes.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+
+# 
+# ### Todos
+# 
+# 
+# ##### Porcentajes BoxPlot
+# 
+# tvs.aaa <- tvs %>% 
+#         group_by(marca) %>%
+#         summarise(p = sum(precio.actual))
+# 
+# 
+tvs.porcentajes <- tvs %>%
+        group_by(marca, precio.antes, precio.actual) %>%
+        # summarise(precio.antes = sum(precio.antes, na.rm = T),
+        #           precio.actual = sum(precio.actual, na.rm = T)) %>%
+        mutate(dif.precios = precio.antes - precio.actual,
+               dif.porcentual = round(dif.precios/precio.antes,2))
+# 
+# 
+
+#Utilizamos median en vez de mean en los boxplots
+#
+medians <- aggregate(dif.porcentual ~ rangos , tvs.porcentajes, median)
+medians$dif.porcentual <- round(medians$dif.porcentual,0)
+#
+# max.percentage <- aggregate(dif.porcentual ~ rangos , ripley.tv.precios, max)
+# max.percentage$dif.porcentual <- round(max.percentage$dif.porcentual,0)
+
+
+
+tt9 <- "Total Ecommerce - variación % descuentos según rango de precios"
+stt9 <- "\n"
+
+
+
+
+
+p <- ggplot(tvs.porcentajes, aes(factor(rangos), dif.porcentual))
+
+
+
+
+#p + geom_boxplot(fill = "white", colour = "#3366FF")
+p + geom_boxplot(fill = "white", colour = "#3366FF", outlier.colour = "blue", outlier.shape = 1,
+        outlier.size = 4) +
+        theme(axis.text.x = element_text(colour="grey20",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey20",size=18,hjust=1,vjust=0,face="plain"),
+              axis.title.x = element_text(colour="grey20",size=14,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey20",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4,face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.position = "none") +
+         # geom_text(data = medians, aes(label = dif.porcentual, y = dif.porcentual + 1.5),
+         #           colour = "grey20", size = 6, vjust = -0.01) +
+        scale_y_continuous(label=percent) +
+        labs(title = tt9, subtitle = stt9, caption = cptn,
+             x = "", y = "")
+
+
+
+ggsave(file="todos-tvs-porcentajes.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")
+
+
+
+### Scaterplot Pulgadas vs Precios
+
+
+tt10 <- "Precio de televisores según su tamaño (pulgadas)"
+stt10 <- "\n"
+
+
+
+
+
+
+pulgadas_precio <- ggplot(tvs, aes(x = pulgadas, y = precio.actual))
+
+
+pulgadas_precio + geom_point(aes(color=factor(marca)),size = 4,alpha = 0.6) +
+        facet_grid(. ~ ecommerce) +
+        theme(axis.text.x = element_text(colour="grey10",size=18,hjust=.5,vjust=.5,face="plain"),
+              axis.text.y = element_text(colour="grey10",size=18,,hjust=1,vjust=0,face="plain"),  
+              axis.title.x = element_text(colour="grey40",size=16,angle=0,hjust=.5,vjust=0,face="plain"),
+              axis.title.y = element_text(colour="grey40",size=16,angle=90,hjust=.5,vjust=.5,face="plain"),
+              plot.title = element_text(size = 24,vjust=4, face="bold"),
+              plot.subtitle = element_text(vjust=2, size = 16),
+              plot.caption = element_text(vjust=2, size = 16),
+              legend.title = element_text(colour="grey40",size=14,hjust=.5,vjust=.5,face="bold"),
+              legend.text = element_text(colour="grey10", size=18, face="plain"),
+              strip.text.x = element_text(size = 20, angle = 0)) +
+        scale_y_continuous(label=comma) +
+        labs(title = tt10, subtitle = stt10, caption = cptn,
+             x = "pulgadas \n", y = "precio en S/. \n") +
+        scale_color_discrete(name="marcas de tvs")
+
+        
+        
+        
+ggsave(file="tvs-pulgadas-precios.jpg", width = 14, height = 8,
+       path = "D:\\RCoursera\\r-s-l\\graficos")        
+        
+        
+        
+
+
+### Write CSV con datos totales TVS
+
+
+file <- paste(as.character(Sys.Date()),"total-tvs", sep = "-")
+
+total.tvs.csv <- paste(file, "csv", sep = ".")
+
+
+## 1er arg es l.tv // 2do arg es nombres del archivo
+
+write.csv(tvs, total.tvs.csv, row.names = F)
+
+
+
+
+```
+
+
+```{r eval=FALSE}
+
+library(RSelenium)
+library(rvest)
+library(dplyr)
+
+
+setwd("D:\\RCoursera\\Ripley")
+
+#start RSelenium
+checkForServer()
+startServer()
+remDr <- remoteDriver()
+remDr$open()
+
+#navigate to your page
+remDr$navigate("http://www.ripley.com.pe/ripley-peru/tv-todas")
+
+Sys.sleep(10)
+
+
+page_source<-remDr$getPageSource()
+
+#parse it
+
+
+
+
+
+
+
+
+
+####
+
+
+product_info <- function(node){
+        r.precio.antes <- html_nodes(node, 'p.normal_encontrado') %>% html_text
+        r.precio.actual <- html_nodes(node, 'div.price') %>% html_text 
+        r.producto <- html_nodes(node,"div.product_name a") %>% html_text
+        
+        
+        r.precio.antes <-   gsub("\\S\\/\\. ", "", r.precio.antes)
+        r.precio.actual <-   gsub("\\S\\/\\. ", "", r.precio.actual)
+        
+        
+        data.frame(
+                ecommerce = "ripley",
+                producto = r.producto,
+                precio.antes = ifelse(length(r.precio.antes)==0, NA, r.precio.antes),
+                precio.actual = ifelse(length(r.precio.actual)==0, NA, r.precio.actual), 
+                #tarjeta.ripley = ifelse(length(r.tarjeta)==0, NA, r.tarjeta),
+                stringsAsFactors=F
+        )
+        
+        
+}
+
+
+
+doc <- read_html(iconv(page_source[[1]]), to="UTF-8") %>% 
+        html_nodes("div.product_info")
+
+
+
+
+r.tv.pag1 <- lapply(doc, product_info) %>%
+            rbind_all
+
+
+
+
+
+####
+
+
+
+
+
+##################################################
+##################################################
+# PAGE 2 #########################################
+##################################################
+##################################################
+
+
+
+
+page2 <- remDr$findElement(
+        using = 'css', 
+        value = "#WC_SearchBasedNavigationResults_pagination_link_2_categoryResults")
+
+page2$clickElement()
+
+
+Sys.sleep(10)
+
+
+page_source<-remDr$getPageSource()
+
+
+
+#parse it
+product_info <- function(node){
+        r.precio.antes <- html_nodes(node, 'p.normal_encontrado') %>% html_text
+        r.precio.actual <- html_nodes(node, 'div.price') %>% html_text 
+        r.producto <- html_nodes(node,"div.product_name a") %>% html_text
+        
+        
+        r.precio.antes <-   gsub("\\S\\/\\. ", "", r.precio.antes)
+        r.precio.actual <-   gsub("\\S\\/\\. ", "", r.precio.actual)
+        
+        
+        data.frame(
+                ecommerce = "ripley",
+                producto = r.producto,
+                precio.antes = ifelse(length(r.precio.antes)==0, NA, r.precio.antes),
+                precio.actual = ifelse(length(r.precio.actual)==0, NA, r.precio.actual), 
+                #tarjeta.ripley = ifelse(length(r.tarjeta)==0, NA, r.tarjeta),
+                stringsAsFactors=F
+        )
+        
+        
+}
+
+
+
+doc <- read_html(iconv(page_source[[1]]), to="UTF-8") %>% 
+        html_nodes("div.product_info")
+
+
+
+
+r.tv.pag2 <- lapply(doc, product_info) %>%
+        rbind_all
+#####
+
+
+page3 <- remDr$findElement(
+        using = 'css', 
+        value = "#WC_SearchBasedNavigationResults_pagination_link_3_categoryResults")
+
+page3$clickElement()
+
+Sys.sleep(10)
+
+page_source <- remDr$getPageSource()
+
+
+#parse it
+product_info <- function(node){
+        r.precio.antes <- html_nodes(node, 'p.normal_encontrado') %>% html_text
+        r.precio.actual <- html_nodes(node, 'div.price') %>% html_text 
+        r.producto <- html_nodes(node,"div.product_name a") %>% html_text
+        
+        
+        r.precio.antes <-   gsub("\\S\\/\\. ", "", r.precio.antes)
+        r.precio.actual <-   gsub("\\S\\/\\. ", "", r.precio.actual)
+        
+        
+        data.frame(
+                ecommerce = "ripley",
+                producto = r.producto,
+                precio.antes = ifelse(length(r.precio.antes)==0, NA, r.precio.antes),
+                precio.actual = ifelse(length(r.precio.actual)==0, NA, r.precio.actual), 
+                #tarjeta.ripley = ifelse(length(r.tarjeta)==0, NA, r.tarjeta),
+                stringsAsFactors=F
+        )
+        
+        
+}
+
+
+
+doc <- read_html(iconv(page_source[[1]]), to="UTF-8") %>% 
+        html_nodes("div.product_info")
+
+
+
+
+r.tv.pag3 <- lapply(doc, product_info) %>%
+        rbind_all
+#####
+
+
+
+page4 <- remDr$findElement(
+        using = 'css', 
+        value = "#WC_SearchBasedNavigationResults_pagination_link_4_categoryResults")
+
+page4$clickElement()
+
+Sys.sleep(10)
+
+page_source <- remDr$getPageSource()
+
+
+#parse it
+
+product_info <- function(node){
+        r.precio.antes <- html_nodes(node, 'p.normal_encontrado') %>% html_text
+        r.precio.actual <- html_nodes(node, 'div.price') %>% html_text 
+        r.producto <- html_nodes(node,"div.product_name a") %>% html_text
+        
+        
+        r.precio.antes <-   gsub("\\S\\/\\. ", "", r.precio.antes)
+        r.precio.actual <-   gsub("\\S\\/\\. ", "", r.precio.actual)
+        
+        
+        data.frame(
+                ecommerce = "ripley",
+                producto = r.producto,
+                precio.antes = ifelse(length(r.precio.antes)==0, NA, r.precio.antes),
+                precio.actual = ifelse(length(r.precio.actual)==0, NA, r.precio.actual), 
+                #tarjeta.ripley = ifelse(length(r.tarjeta)==0, NA, r.tarjeta),
+                stringsAsFactors=F
+        )
+        
+        
+}
+
+
+
+doc <- read_html(iconv(page_source[[1]]), to="UTF-8") %>% 
+        html_nodes("div.product_info")
+
+
+
+
+r.tv.pag4 <- lapply(doc, product_info) %>%
+              rbind_all
+
+#####
+
+
+
+
+
+#####################
+
+#############################
+### Combining the dfs #######
+#############################
+
+
+
+r.tv <- rbind(r.tv.pag1, r.tv.pag2, r.tv.pag3,
+               r.tv.pag4)
+
+######
+
+
+r.tv$precio.antes <- trimws(r.tv$precio.antes, which = "both")
+
+r.tv$precio.actual <- trimws(r.tv$precio.actual, which = "both")
+
+
+
+r.tv$precio.antes <- gsub(",", "", r.tv$precio.antes)
+r.tv$precio.actual <- gsub(",", "", r.tv$precio.actual)
+
+
+r.tv$precio.antes <- as.numeric(r.tv$precio.antes)
+r.tv$precio.actual <- as.numeric(r.tv$precio.actual)
+
+
+
+
+r.tv$producto <- gsub("Ã¢Â???Â", '"',r.tv$producto)
+
+
+##### Marca
+
+r.tv$marca <- ifelse(grepl("samsung", r.tv$producto, ignore.case = T), "samsung",r.tv$producto) 
+
+r.tv$marca <- ifelse(grepl("lg", r.tv$producto, ignore.case = T), "lg",r.tv$marca) 
+
+r.tv$marca <- ifelse(grepl("haier", r.tv$producto, ignore.case = T), "haier",r.tv$marca)
+
+r.tv$marca <- ifelse(grepl("panasonic", r.tv$producto, ignore.case = T), "panasonic",r.tv$marca)
+
+r.tv$marca <- ifelse(grepl("sony", r.tv$producto, ignore.case = T), "sony",r.tv$marca)
+
+r.tv$marca <- ifelse(grepl("sharp", r.tv$producto, ignore.case = T), "sharp",r.tv$marca)
+
+r.tv$marca <- ifelse(grepl("aoc", r.tv$producto, ignore.case = T), "aoc",r.tv$marca)
+
+
+##### Hay algunas TVs que no dicen ni Smart, solo tv hd.
+##### Hay que entrar a la ficha del producto para enterarte que es LED.
+
+# 
+# r.tv$tecnologia <- ifelse(grepl("smart tv", r.tv$producto, ignore.case = T), "smart tv", r.tv$producto)
+# 
+# 
+# r.tv$tecnologia <- ifelse(grepl("tv smart", r.tv$producto, ignore.case = T), "smart tv", r.tv$tecnologia)
+# 
+# 
+# r.tv$tecnologia <- ifelse(grepl("tv led", r.tv$producto, ignore.case = T), "led", r.tv$tecnologia)
+# 
+# 
+# r.tv$tecnologia <- ifelse(grepl("tv hd", r.tv$producto, ignore.case = T), "led", r.tv$tecnologia)
+# 
+# 
+# r.tv$tecnologia <- ifelse(grepl("televisor led", r.tv$producto, ignore.case = T), "led", r.tv$tecnologia)
+
+
+#####
+
+
+r.tv$pulgadas <- sub(".*?(\\d+['\"]).*", "\\1", r.tv$producto)
+
+r.tv$pulgadas[72] <- 23.6
+
+
+r.tv$pulgadas <- sub('"', "", r.tv$pulgadas)
+r.tv$pulgadas <- sub("'", "", r.tv$pulgadas)
+
+
+
+### To lower 
+
+
+r.tv <- as.data.frame(apply(r.tv[,],2,tolower))
+
+
+
+
+##### Dif de precios
+### Se hará cuando se junten los datos de los 3 ecommerce
+
+# r.tv <- r.tv %>%
+#         mutate(dif.precios = precio.antes - precio.actual)
+#         
+# 
+# 
+# r.tv$dif.precios <- ifelse(is.na(r.tv$dif.precios), 0, r.tv$dif.precios)
+
+
+
+
+### Ordenar columnas
+
+r.tv <- r.tv[,c(1,5,2,3,4,6)]
+
+###
+
+
+file <- paste(as.character(Sys.Date()), "r-tvs", sep = "-")
+
+r.tv.csv <- paste(file, "csv", sep = ".")
+
+
+write.csv(r.tv, r.tv.csv, row.names = F)
+
+
+
+
+```

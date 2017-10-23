@@ -1,0 +1,324 @@
+---
+title: "Google Analytics en R, dejando de lado Excel"
+author: "omar gonzáles díaz"
+date: "25 de setiembre de 2017"
+output: 
+  html_document:
+    includes:
+      in_header: ../header.html
+      before_body: ../doc_prefix.html
+      after_body: ../after_body.html
+    code_folding: show
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+</br>
+</br>
+</br>
+
+
+# Google Analytics y R
+## Parte I: Automatización de la extracción de datos
+
+</br>
+</br>
+
+Decidí escribir este artículo para mostrar el gran valor que se esconde en los datos. Si tienes una página web es probable que estés recolectando datos sobre los usuarios que ingresan a tu web. Pero, ¿estás usando estos datos para tomar decisiones que impacten en tu negocio?
+
+
+En estos días, estamos nadando en mares de datos. Solo si sabes como usarlos podrás mantenerte a flote `r emo::ji("smile")`. El primer paso es revisar regularmente los reportes estándar en tu herramienta de web analytics favorita: Google Analytics `r emo::ji("wink")`
+
+
+Pero para ser competitivo necesitas algo más. Todos hablan acerca de la recolección de datos. Pero solo unos pocos te dirán que hacer con esos datos una vez recolectados. Por mi parte, trataré de describir este proceso y darte algunas buenas ideas sobre como lidiar con los datos de Google Analytics utilizando R. 
+
+En este post compartiré mi experiencia en el uso de GA y R. Espero que les sea de utilidad, de interés, por ratos divertido, y, principalmente, que les ahorre tiempo `r emo::ji("clock7")`.
+
+
+En las próximas semanas escribiré un poco sobre visualización de datos de GA con R, así como limpieza y agrupación de fuentes (Adwords, Email, Facebook, etc), y también sobre lo que podemos hacer para evitar el sampling.
+
+
+</br>
+</br>
+
+![Excel-is-the-worst](img\\googleAnalticsR\\excel-is-the-worst.jpg)
+
+
+</br>
+</br>
+
+##Resumen
+
+1. Instalar R
+2. Instalar RStudio
+3. Instalar los paquetes: googleAnalyticsR y ggplot2.
+4. Aplicar el R Script de este post.
+5. Autorizar a googleAnalyticsR para que acceda a sus datos
+6. Encuentra el Id de la Vista (viewID) de Google Analytics de la vista a analizar.
+7. Define el rango de fechas dinámica o estática
+8. Corre el código de "Páginas vistas" (`paginas_vistas`) 
+9. Revisa la data con `View(paginas_vistas)`. 
+10. Corre el código para "Sesiones por día" (`sesiones_por_dia`).
+11. Mira el código para sesiones_por_dia. 
+12. Crea un gráfico de líneas con `ggplot2`
+13. Explorar más dimensiones y métricas con Google Analytics - Query Builder.
+
+
+
+
+</br>
+</br>
+
+
+1. Descargar e instalar R
+
+R es un lenguaje de programación enfocado a la estadística y visualización de datos, entre otras cosas. Descargue R para Windows, Mac y Linux aquí:
+
+https://cran.r-project.org/
+
+
+
+2. Descarga e instala R Studio
+
+RStudio es un ambiente de desarrollo interactivo. Es la interface de usuario que te permitirá trabajar de una manera más eficiente desarrollando tus scripts.
+
+Descárgalo aquí:
+
+https://www.rstudio.com/products/rstudio/download/
+
+
+3. Instalar los paquetes: googleAnalyticsR y ggplot2.
+
+
+Pueden instalar ambas librerías con los siguientes comandos:
+
+`install.packages("ggplot2")`
+
+`install.packages("googleAnalyticsR")`
+</br>
+</br>
+
+
+4. Aplica (corre) este script:
+
+Simplemente copia desde `library(googleAnalyticsR)` hasta `labs(title = "Sesiones por día")`. 
+</br>
+</br>
+
+```{r eval=FALSE}
+
+
+library(googleAnalyticsR)
+library(ggplot2)
+
+#Autoriza  Google Analytics R- esto abrira una ventana
+#en tu navegador web. Deberás loggearte con el email 
+#con el que ingresas normalmente a Google Analytics.
+
+ga_auth()
+
+#Utiliza el Google Analytics Management API para ver
+#una lista de las cuentas de Google Analytics a las que 
+#tienes acceso.
+
+my_accounts <- google_analytics_account_list()
+View(my_accounts)
+
+
+#Usa la variable my_accounts para encontrar el viewId (Id de la vista)
+#Asegúrate de reemplazar el valor de my_id con el ID correcto.
+
+
+my_id <- 91285066
+
+#Configura variables para una selección de fechas dinámica
+start_date <- "60daysAgo"
+end_date <- "yesterday"
+
+#Page View Query
+paginas_vistas <- google_analytics_4(my_id, 
+                          date_range = c("2016-12-10", "2017-02-07"),
+                          metrics = c("pageviews"),
+                          dimensions = c("pagePath"))
+
+#Session Query - Uses start_date and end_date
+sesiones_por_dia <- google_analytics_4(my_id, 
+                          date_range = c(start_date, end_date),
+                          metrics = c("sessions"),
+                          dimensions = c("date"))
+
+#graph sessions by date
+ggplot(data=sesiones_por_dia, aes(x=date, y=sessions)) +
+  geom_line(stat="identity") +
+  labs(title = "Sesiones por día")
+
+
+```
+</br>
+</br>
+
+5. Autorizar a googleAnalyticsR para que acceda a sus datos
+
+Una vez que ya tenemos el script en RStudio, procedemos a ejecutarlo. 
+
+
+
+
++ Ejecutar la función `ga_auth()` 
+
+Esta función va a abrir el navegador que tengas por defecto, y te va a pedir que le des permiso a la librería para acceder a tus datos de GA.
+
+Elige con qué email vas a dar acceso a la librería `googleAnalyticsR`. El email debe contar con acceso a la cuenta de Google Analytics que se quiere analizar.
+
+</br>
+</br>
+
+![](img\\googleAnalticsR\\ga_auth.jpg)
+</br>
+</br>
+
++ Google te avisará que clase de permisos necesita la librería, a lo que deberás darle aceptar.
+
+</br>
+</br>
+
+![](img\\googleAnalticsR\\ga_auth02.jpg)
+</br>
+</br>
+
++ Finalmente se indicará que ya pueden cerrar el navegador y podemos regresar a `RStudio` a continuar trabajando.
+
+</br>
+</br>
+
+![](img\\googleAnalticsR\\ga_auth03.jpg)
+
+</br>
+</br>
+
+6. Encuentra el Id de la Vista (viewID) de Google Analytics de la vista a analizar.
+
+
+En este caso, como lo que quiero analizar son los datos de mi página principal, busco el id de la vista correcta y lo asignamos a la variable `my_id`:
+
+
+
+`my_id <- 91285066`
+</br>
+</br>
+
+
+
+![](img\\googleAnalticsR\\my_accounts_id.jpg)
+</br>
+</br>
+
+
+
+7. Define el rango de fechas dinámica o estática
+
+
+
+Es momento de elegir las fechas de inicio y fin para nuestro reporte. Lo podemos hacer de manera estática, es decir, proporcionando la fecha en el formato `YYYY-MM-DD`, por ejemplo: 2017-09-23.
+
+O lo podemos hacer de forma dinámica, utilizando las abreviaturas que propociona el API V4 de Google Analytics: `yesterday`, `today` o `XDaysAgo`.
+
+
+
+
+```{r eval=FALSE}
+#Configura variables para una selección de fechas dinámica
+start_date <- "60daysAgo"
+end_date <- "yesterday"`
+```
+</br>
+</br>
+
+
+8. Corre el código de "Páginas vistas" (`paginas_vistas`)
+
+
+```{r eval=FALSE}
+#Page View Query
+paginas_vistas <- google_analytics_4(my_id, 
+                          date_range = c("2016-12-10", "2017-02-07"),
+                          metrics = c("pageviews"),
+                          dimensions = c("pagePath"))
+```
+</br>
+</br>
+
+9. Revisa la data con `View(paginas_vistas)`. 
+
+
+Puedes revisar la data de tu consulta con: `View(paginas_vistas)`. 
+
+La consulta que acabo de hacer nos arrojará una tabla con con la cantidad de páginas vistas, de cada sección de nuestra página web (porque utilizamos la dimensión `pagePath`).
+
+
+
+10. Corre el código para "Sesiones por día" (`sesiones_por_dia`).
+
+Esta consulta nos arrojará la cantidad de sesiones por día, de acuerdo al rango de fechas que le proporcionemos.
+
+
+```{r eval=FALSE}
+#Session Query - Uses start_date and end_date
+sesiones_por_dia <- google_analytics_4(my_id, 
+                          date_range = c(start_date, end_date),
+                          metrics = c("sessions"),
+                          dimensions = c("date"))
+```
+</br>
+</br>
+
+
+11. Mira el código para sesiones_por_dia. 
+
+Este data.frame contiene 2 columnas: día (de acuerdo al rango de fechas)  y sesiones (con la cantidad total de sesiones del día).
+
+
+12. Crea un gráfico de líneas con `ggplot2`.
+
+`ggplot2` es una librería de visualización de datos de R. 
+En el libro R for Data Science, de Hadley Wickham podrán encontrar más detalles sobre esta librería. Por mi parte, espero escribir en las próximas semanas un post detallado para conocer qué tipos de gráficos podemos generar con los datos obtenidos desde Google Analytics con `ggplot2`. 
+[R for Data Science -Data Visualization](http://r4ds.had.co.nz/data-visualisation.html "R for Data Science -Data Visualization")
+
+
+
+```{r eval=FALSE}
+#graph sessions by date
+ggplot(data=sesiones_por_dia, aes(x=date, y=sessions)) +
+  geom_line(stat="identity") +
+  labs(title = "Sesiones por día")
+```
+</br>
+</br>
+
+Básicamente lo que esté código hace es llamar a la función `ggplot()`, se asigna la data con la que se quiere trabajar en el argumento `data`, así como los ejes `x` y `y`. Luego se indica que tipo de gráfico queremos realizar, en este caso uno de lineas `geom_line()`. Finalmente agregamos los títulos con `labs()`. Todos estos argumentos se concatenan con el símbolo `+`.
+
+</br>
+</br>
+
+
+![](img\\googleAnalticsR\\sesionesxdia.png)
+
+</br>
+</br>
+
+13. Explora más opciones
+
+No olvides utilizar Goolge Analytics - Query Builder para comprender mejor qué dimensiones y qué métricas pueden utilizarse en conjunto. 
+
+Esta herramienta te será de mucha ayuda. Ten en cuenta que te arrojará las métricas y dimensiones bajo el formato: `ga: + métrica|dimensión`, por ejemplo `ga:sessions`, y para tus scripts en R solo necesitarás la segunda parte `sessions`.
+
+
+
+[Google Analyitcs - Query Builder](https://ga-dev-tools.appspot.com/query-explorer/ "Google Analytics - Query Builder")
+
+
+

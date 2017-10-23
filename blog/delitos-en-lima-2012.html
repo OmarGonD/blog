@@ -1,0 +1,327 @@
+<!doctype HTML>
+ 
+<html lang="es">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+        <script src="../scripts/lang-r.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/estilos.css">
+    </head>
+   
+    <body>
+         <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WNFRFK"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WNFRFK');</script>
+        <!-- End Google Tag Manager -->
+        
+       
+    <div class="container">
+
+      <!-- The justified navigation menu is meant for single line per list item.
+           Multiple lines will require custom code not provided by Bootstrap. -->
+      <div class="masthead">
+        <h2 class="text-muted top50">omar gonzáles díaz</h2>
+        <p class="text-muted">Data Analyst and R Programmer</p>
+        <nav>
+          <ul class="nav nav-justified top10 navConstricted">
+            <li class="active"><a href="../index.html">Inicio</a></li>
+            <li><a href="../projectos.html">Projectos</a></li>
+            <li><a href="../blog.html">¡Blog!</a></li>
+            <li><a href="../js-ejercicios.html">Javascript</a></li>
+            <li><a href="../sobre-mi.html">Sobre mí</a></li>
+          </ul>
+        </nav>
+      </div>
+        
+        
+      </br>
+      </br>
+      </br>
+
+      <!-- Jumbotron -->
+      <div class="main row top50">
+            
+            
+            
+            
+             
+                        
+                        <h1>Mapa delicuencial de Lima</h1>
+                        <h2 class="text-muted">Por tipo de delito</h2>
+            </br>
+                        
+                    <p>Este último mes tuve un poco más de tiempo libre y aproveché para avanzar con este proyecto que tenía en mente desde hace unos meses.</p>
+
+<p>Una de las cosas que impulsó a terminar este post fue la cantidad enorme de asaltos y asesinatos, principalmente en San Juan de Lurigancho en mayo.</p>
+
+<p>Lo primero que me pregunté fue: ¿Cómo está la situación en los demás distritos? Para esto fui a ver qué información podía obtener de la web de la PNP. Y lo que encontré no me ayudó mucho, pero eran datos -y necesitaban una mejor presentación para arrojar una respuesta a mi pregunta-.</p>
+
+<p>Si bien la data no es muy actual, creo que nos ayudará a entender cómo se distribuyen los actos delictivos en los distritos de Lima.</p>
+
+
+
+<h2>Data:</h2>
+
+</br>
+<p>Los datos los extrajimos de aquí:</p>
+
+<a href="https://www.pnp.gob.pe/ESTADISTICA_DELINCUENCIAL/SEGUN%20COMISARIA%20Y%20DISTRITO%20lIMA%20Y%20CALLAO%20-%20%20REPORTE%20NOVIEMBRE%202012.pdf">PNP - Estadística delicuencial - Nov 2012</a>
+
+<p>Y convertimos la data a Excel, utilizando este programa:</p>
+
+<a href="https://www.cogniview.com/es/">ConigView</a>
+
+
+   
+    <h3>Sobre la data:</h3>
+    </br>
+
+    <p>Contiene 15 columnas (originalmente 13, se añadieron Longitud y Latitud, manualmente -Gracias Google Maps), y 129 observaciones (entradas).</p>
+
+    <p>La data solo representa los delitos denunciados, la cantidad probablemente fue mayor en Nov 2012 (¡por favor, hagan sus denuncias!)</p>
+
+
+                        
+</br>  
+</br>    
+                
+<div class="codigo">
+<code class="prettyprint">
+'data.frame':	129 obs. of  15 variables:</br>
+
+ $ UNIDAD.PNP                  : chr  "DIV.T. NORTE 1" "DIV.T. ESTE 1" "DIV.T. ESTE 2" "DIV.T. NORTE 2" ...</br>
+ $ PROVINCIA                   : chr  "LIMA" "LIMA" "LIMA" "LIMA" ...</br>
+ $ DISTRITO                    : chr  "LOS OLIVOS" "SAN JUAN DE LURIGANCHO" "ATE" "INDEPENDENCIA" ...</br>
+ $ LATITUD                     : chr  "-11.946155" "-11.987993" "-12.038215" "-11.992879" ...</br>
+ $ LONGITUD                    : chr  "-77.077962" "-76.996715" "-76.890494" "-77.050349" ...</br>
+ $ COMISARIA                   : chr  "Laura Caller" "Santa Elizabeth" "Vitarte" "Independencia" ...</br>
+ $ TOTALES                     : int  355 344 328 300 281 212 206 190 189 188 ...</br>
+ $ HOMICIDIOS                  : int  0 0 0 0 0 0 0 1 0 0 ...</br>
+ $ LESIONES                    : int  33 56 23 34 4 5 4 21 15 7 ...</br>
+ $ VIO..DE.LA.LIBERTAD.PERSONAL: int  0 0 0 0 0 0 0 2 5 1 ...</br>
+ $ VIO..DE.LA.LIBERTAD.SEXUAL  : int  2 9 3 6 6 3 2 3 4 7 ...</br>
+ $ HURTO.SIMPLE.Y.AGRAVADO     : int  224 110 161 103 125 138 54 85 58 120 ...</br>
+ $ ROBO.SIMPLE.Y.AGRAVADO      : int  87 164 141 154 136 66 140 78 103 51 ...</br>
+ $ MICRO.COM.DE.DROGAS         : int  9 4 0 3 10 0 6 0 4 2 ...</br>
+ $ TENENCIA.ILEGAL.DE.ARMAS    : int  0 1 0 0 0 0 0 0 0 0 ...</br>
+
+</code>
+</div>                    
+                        
+
+
+<h2>Objetivos:</h2>
+</br>
+<ol>
+
+<li>¿Qué distrito registra más delitos contra la seguridad ciudadana? ¿Qué días y a qué hora se dan estos delitos (por tipo de delito)?</li>
+
+<li>¿Qué tipo de delito es más frecuente por distrito?</li>
+
+<li>¿Qué comisaría registra la mayor cantidad de denuncias?¿A qué distrito pertenece? Tener en cuenta la población total del distrito (Falta).</li>
+    
+</ol>
+
+</br>
+    
+<h4><b>&nbsp;&nbsp;&nbsp;&nbsp;Información que me gustaría saber (sobre la cual no encuentro fuentes):</b></h4>
+
+    
+<ol>
+<li>¿Cantidad poblacional por distrito? Ratio sobre denuncias. (Falta: información no se encuentra en el data set)</li>
+<li>¿Cantidad de policías asignados por comisaría/ distrito? (Falta: información no se encuentra en el data set)</li>
+</ol>
+    
+
+                        
+ </br>                       
+                        
+
+<ul class="text-danger">   
+Observaciones:
+    <li>
+        <p>No se encuentra data sobre "Villa María del Triunfo" en la fuente original.</p>
+    </li>
+</ul>
+    
+</br>
+</br>   
+                        
+                        
+
+            
+                <h2 class="text-muted">Gráficos por tipo de delito</h2>
+
+                <h3>Mapas Lima Metropolitana según delitos:</h3>
+
+                <h3>Lima nov 2012: Total delitos</h3>
+
+                <img src="../images/limanov2012-total-delitos-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Drogas Callao</h3>
+
+
+                <img src="../images/limanov2012-drogas-callao-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Drogas No-Callao</h3>
+
+                <img src="../images/limanov2012-drogas-no-callao-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Homicidios</h3>
+
+                <img src="../images/limanov2012-homicidios-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Hurtos</h3>
+
+                <img src="../images/limanov2012-hurtos-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Lesiones</h3>
+
+                <img src="../images/limanov2012-lesiones-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Robo (simple y agravado)</h3>
+
+                <img src="../images/limanov2012-robo-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Secuestros</h3>
+
+                <img src="../images/limanov2012-secuestros-1024x992.png" class="center-block size80">
+
+                <h3>Lima nov 2012: Violaciones</h3>
+
+                <img src="../images/limanov2012-violaciones-1024x992.png" class="center-block size80">    
+
+
+                <div class="codigo">
+                    <code class="prettyprint lang-r">
+                    <p>
+                    library(maps)</br>
+                    library(ggmap)</br>
+                    library(extrafont)</br>
+                    library(dplyr)</br>
+                    </p>
+
+
+
+                    </br>
+                    ### Read data in ###</br>
+                    </br>
+
+                    limanov2012 <- read.csv2("nov2012.csv", stringsAsFactors = F, header = T)</br>
+
+                    </br>
+                    ### get map from Google Maps ###</br>
+                    </br>
+
+                    lima <- get_map(location = "lima", zoom = 11, maptype = c("terrain"))</br>
+
+                    </br>
+                    ### Convert Longitud and Latitud from Characters to Numbers ###</br>
+                    </br>
+
+                    limanov2012[,4] <- round(as.numeric(as.character(limanov2012[,4])),2)</br>
+                    limanov2012[,5] <- round(as.numeric(as.character(limanov2012[,5])),2)</br>
+
+
+                    </br>
+                    ### Group  data by DISTRITO - SUM DELITOS ###</br>
+                    </br>
+
+                    limanov2 <- limanov2012 %>%</br>
+                                    group_by(DISTRITO) %>%</br>
+                                    summarise(TOTALES = sum(TOTALES),</br>
+                                              HOMICIDIOS = sum(HOMICIDIOS),</br>
+                                              LESIONES = sum(LESIONES),</br>
+                                              VIO..DE.LA.LIBERTAD.PERSONAL = sum(VIO..DE.LA.LIBERTAD.PERSONAL),</br>
+                                              VIO..DE.LA.LIBERTAD.SEXUAL = sum(VIO..DE.LA.LIBERTAD.SEXUAL),</br>
+                                              HURTO.SIMPLE.Y.AGRAVADO = sum(HURTO.SIMPLE.Y.AGRAVADO),</br>
+                                              ROBO.SIMPLE.Y.AGRAVADO = sum(ROBO.SIMPLE.Y.AGRAVADO),</br>
+                                              MICRO.COM.DE.DROGAS = sum(MICRO.COM.DE.DROGAS),</br>
+                                              TENENCIA.ILEGAL.DE.ARMAS = sum(TENENCIA.ILEGAL.DE.ARMAS),</br>
+                                              LONGITUD = mean(LONGITUD),</br>
+                                              LATITUD = mean(LATITUD)) %>%</br>
+                                    arrange(-TOTALES)</br>
+                    
+
+                    </br>
+                    ### Graphic TOTALES ###</br>
+                    </br>
+
+
+                    ggmap(lima) + geom_point(data = limanov2, aes(x = LONGITUD , y = LATITUD, color = TOTALES,</br>
+                                                                      size = TOTALES), alpha = 0.7) +</br>
+                            scale_size_continuous(name = "Cantidad\ndelitos",range = c(2,12)) +</br> 
+                            scale_color_gradient(name = "Cantidad\ndelitos", low = "yellow", high = "red") +</br>
+                            theme(legend.text= element_text(size=14)) +</br>
+                            ggtitle("TOTAL DELITOS - LIMA NOV 2012") +</br>
+                            theme(plot.title = element_text(size = 12, vjust=2, family="Verdana", face = "bold.italic"),              
+                                   legend.position = 'left') +</br>
+                            guides(colour = guide_legend(override.aes = list(alpha=1)))</br>
+                    </br>
+                    </br>
+
+
+                    ggsave("limanov2012-total-delitos.png")</br> 
+
+                    </code>
+                    </div>
+              
+
+
+</br>
+</br>
+</br>
+
+
+                <h3>UPDATE 1 (09/07/2015):</h3>
+
+                Encontré un blog con una técnica similar, pero que recoge la longitud y latitud con un for loop. Vamos a                  revisarlo:
+
+                <a href="http://blog.dominodatalab.com/geographic-visualization-with-rs-ggmaps/"></a>
+
+
+                <h3>UPDATE 2 (06/08/2015):</h3>
+
+                <p>Hace poco un canal de noticias publicó un mapa delincuencial de Lima. La intención                                        fue buena, la ejecución no tanto.</p>
+                </br>
+                </br>
+    
+    
+                <img  src="../images/mapadelincuencia_lima.png" class="size80 bottom40">
+
+                </br>
+                <p>Este mapa tiene 2 problemas principales:</p>
+                <ol>
+
+                <li><h4>El símbolo utilizado no representa la cantidad de eventos por distrito:</h4>
+
+                <p>No se distingue qué distritos son los que registran mayor actos delincuenciales (todas las pistolas                      son del mismo tamañano y color).</p></li>
+
+                <li><h4>No se demilitan bien los distritos</h4>
+
+                <p>El hecho de acumular los símbolos sobre los distritos dificulta reconocer qué distritos son los más                       afectados.</p></li>
+    
+                </ol>
+
+                
+        </div>
+        
+         <footer class="bottom20">
+            <hr>
+            <div>© <a href="../index.html">omar gonzales diaz</a>
+            2015
+            </div>
+        </footer>
+
+        </div> <!--Div the .Container -->
+    </body>
+</html>

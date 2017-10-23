@@ -1,0 +1,495 @@
+
+library(googleAnalyticsR)
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(scales)
+library(ggthemes)
+
+#Autoriza  Google Analytics R- esto abrira una ventana
+#en tu navegador web. Deberás loggearte con el email 
+#con el que ingresas normalmente a Google Analytics.
+
+ga_auth()
+
+#Utiliza el Google Analytics Management API para ver
+#una lista de las cuentas de Google Analytics a las que 
+#tienes acceso.
+
+my_accounts <- ga_account_list()
+
+
+
+#Usa la variable my_accounts para encontrar el viewId (Id de la vista)
+#Asegúrate de reemplazar el valor de my_id con el ID correcto.
+
+
+my_id <- 91285066
+
+#Configura variables para una selección de fechas dinámica
+start_date <- as.Date("2017-01-01")
+end_date <- Sys.Date() - 1
+
+#Page View Query
+paginas_vistas <- google_analytics_4(my_id, 
+                                     date_range = c("2016-12-10", "2017-02-07"),
+                                     metrics = c("pageviews"),
+                                     dimensions = c("pagePath"))
+
+
+
+#Session Query - Uses start_date and end_date
+
+
+
+sesiones <- google_analytics_4(my_id, 
+                                       date_range = c(start_date, end_date),
+                                       metrics = c("sessions"),
+                                       dimensions = c("date","hour", "source", "medium"))
+
+
+
+
+sesiones_por_horas <- google_analytics_4(my_id, 
+                                  date_range = c(start_date, end_date),
+                                  metrics = c("sessions"),
+                                  dimensions = c("date", "hour"),
+                                  anti_sample = T)
+
+
+
+
+
+
+
+
+#####################
+### Cleaning data ###
+#####################
+
+
+
+### Remove white spaces adelante y detr?s
+
+
+sesiones$medium <- trimws(sesiones$medium, which = "both")
+
+sesiones$source <- trimws(sesiones$source, which = "both")
+
+
+
+
+
+#######################
+### Fuente correcta ###
+#######################
+
+
+
+
+
+
+sesiones$fuente <- NA
+
+
+
+
+
+for (i in 1:nrow(sesiones)) {
+  
+  
+  ### PATHs
+  
+  spam.path <- paste(c("site.*", ".*event.*", ".*free.*", ".*theguardlan.*",".*.\\org",
+                       ".*guardlink.*", ".*torture.*", ".*forum.*", ".*buy.*",
+                       ".*share.*", ".*buttons.*", ".*pyme\\.lavoztx\\.com\\.*",
+                       ".*amezon.*", ".*porn.*", "quality", "trafficgenius\\.xyz",
+                       "gametab\\.myplaycity\\.com", "login.*", "mega.*", "blog",
+                       "[0-9]{3}\\.[0-9]{2}.*", ".*\\:.*", ".*\\.xyz", "online", "internet"),
+                     collapse="|")
+  
+  
+  
+  adsense.path <- paste(c("tpc.googlesyndication.com",
+                          "googleads[.]g[.]doubleclick[.]net"),
+                        collapse="|")
+  
+  
+  
+  
+  adwords.path <- paste(c("cpc", "search",
+                          "ccp","google_display",
+                          "cpm","cpv","youtube.*","video.*",
+                          "google", "google_blast","(not set)"),
+                        collapse="|")
+  
+  
+  
+  
+  email.path <- paste(c(".*mail.*", "newsletter"
+  ),
+  collapse="|")
+  
+  
+  
+  
+  referral.path <- paste(c(".*google\\.com\\.pe.*",
+                           ".*google\\.co\\.ve.*",
+                           ".*google\\.com\\.br.*",
+                           ".*google\\.com\\.bo.*",
+                           ".*google\\.com\\.ar.*",
+                           ".*google\\.com.*",
+                           "sodimac.com.pe",
+                           "falabella.com.pe",
+                           "beneficios.gruporomero.com.pe",
+                           "somossesiones.net","shop.lenovo.com",
+                           "canonexperience.pe", "lg.com", "deperu.com"
+  ),
+  collapse="|")
+  
+  
+  linkedin.path <- "linkedin"
+  
+  
+  
+  redes.sociales.path <- paste(c(".*fac?e.*",
+                                 ".*twitt?.*","tw.*", "pp.*"),
+                               collapse="|")
+  
+  
+  
+  ritmo.romantica.path <- paste(c("ritmo.*"
+  ),
+  collapse="|")
+  
+  
+  
+  prensmart.path <- paste(c("prensmart.*"
+  ),
+  collapse="|")
+  
+  organic.path <- paste(c("start.iminent.com",".*search.*",
+                          "websearch.com","crawler.com|allmyweb.com"),
+                        collapse="|")
+  
+  
+  
+  otros.path <- paste(c("web", "popup", "contenido"),
+                      collapse="|")
+  
+  
+  #direct.path <- "//(direct//).*"
+  
+  ### GREPL PART
+  adsense <- grepl(adsense.path, sesiones$source[i], ignore.case = T)
+  
+  
+  adwords.medium <- grepl(adwords.path,sesiones$medium[i], ignore.case = T)
+  
+  adwords.source <- grepl(adwords.path,sesiones$source[i], ignore.case = T)
+  
+  
+  email.medium <- grepl(email.path,sesiones$medium[i], ignore.case = T)
+  
+  email.source <- grepl(email.path,sesiones$source[i], ignore.case = T)
+  
+  
+  
+  linkedin.source <- grepl(linkedin.path,sesiones$source[i], ignore.case = T)
+  
+  
+  
+  referral.medium <- grepl("referral", sesiones$medium[i],
+                           ignore.case = T)
+  
+  referral.source <- grepl(referral.path, sesiones$source[i],
+                           ignore.case = T)
+  
+  
+  spam <- grepl(spam.path, sesiones$source[i],
+                ignore.case = T)
+  
+  
+  
+  redes.sociales <- grepl(redes.sociales.path, sesiones$source[i],
+                          ignore.case = T)
+  
+  
+  ritmo.romantica <- grepl(ritmo.romantica.path, sesiones$source[i],
+                           ignore.case = T)
+  
+  
+  
+  prensmart <- grepl(prensmart.path, sesiones$source[i],
+                     ignore.case = T)
+  
+  organic <- grepl(organic.path, sesiones$source[i], ignore.case = T)
+  
+  
+  
+  otros <- grepl(otros.path, sesiones$medium[i], ignore.case = T)
+  
+  #directo <- grepl(direct.path, sesiones$source[i], ignore.case = T)
+  
+  
+  
+  ### Conditional part
+  
+  ### Directo tiene un espacio en blanco
+  
+  if (sesiones$source[i] == "(direct)") {
+    sesiones$fuente[i] <- "directo"
+  } 
+  
+  
+  else if (referral.source | otros) {
+    
+    sesiones$fuente[i] <- "referencias"
+    
+  }
+  
+  
+  else if (sesiones$medium[i] == "organic" |
+           organic) {
+    sesiones$fuente[i] <- "orgánico"
+  }
+  
+  else if (adwords.source
+           & adwords.medium) {
+    
+    sesiones$fuente[i] <- "adwords"
+  }
+  
+  
+  
+  else if (adsense) {
+    
+    sesiones$fuente[i] <- "adsense"
+  }
+  
+  
+  else if (email.medium | email.source) {
+    
+    sesiones$fuente[i] <- "email"
+  }
+  
+  
+  else if (linkedin.source) {
+    
+    sesiones$fuente[i] <- "linkedin"
+  }
+  
+  
+  
+  else if (redes.sociales) {
+    
+    sesiones$fuente[i] <- "redes sociales"
+  }
+  
+  else if (ritmo.romantica) {
+    
+    sesiones$fuente[i] <- "ritmo rom?ntica"
+  }
+  
+  
+  else if (prensmart) {
+    
+    sesiones$fuente[i] <- "prensmart"
+    
+  }
+  
+  
+  else if (spam) {
+    
+    sesiones$fuente[i] <- "spam"
+  }
+  
+  else {
+    sesiones$fuente[i] <- "spam"
+  }
+}
+
+
+
+
+
+
+######################
+
+
+
+
+
+sesiones$mes <- months(sesiones$date)
+
+sesiones$mes <- factor(sesiones$mes, levels = c("Enero", "Febrero",
+                                                "Marzo", "Abril",
+                                                "Mayo", "Junio",
+                                                "Julio", "Agosto",
+                                                "Setiembre"), ordered = T)
+
+
+
+
+
+
+
+sesiones$dia <- weekdays(sesiones$date)
+
+sesiones$dia <- ordered(sesiones$dia, levels=rev(c("lunes","martes","miércoles","jueves",
+                                                   "viernes", "sábado","domingo"))) 
+
+
+
+
+
+
+
+sesiones_por_horas$dia <- weekdays(sesiones_por_horas$date)
+
+
+
+sesiones_por_horas$dia <- ordered(sesiones_por_horas$dia, levels=rev(c("lunes","martes","miércoles","jueves",
+                                                   "viernes", "sábado","domingo"))) 
+
+
+
+
+
+
+#######################################################
+############## Transformación de datos ################
+#######################################################
+
+
+
+sesiones_hora <- sesiones_por_horas %>%
+                  group_by(dia, hour) %>%
+                  summarise(sessions = sum(sessions))
+
+
+
+
+sesiones_por_dia <- sesiones %>%
+                    group_by(date) %>%
+                    summarise(sessions = sum(sessions))
+
+
+
+
+
+sesiones_fuente <- sesiones %>%
+                    group_by(mes, fuente) %>%
+                    summarise(sessions = sum(sessions))
+
+
+
+
+
+sesiones_por_mes <- sesiones %>%
+  group_by(mes) %>%
+  summarise(sessions = sum(sessions))
+
+
+
+#####################################
+############ Gráficos ###############
+#####################################
+
+
+
+
+
+
+#graph sessions por hora
+
+
+
+
+gg <- ggplot(sesiones_hora, aes(x=hour, y=dia, fill=sessions))
+gg <- gg + geom_tile(color="white", size=0.1)
+gg <- gg + scale_fill_viridis_c(name="# Visitas", label=comma)
+gg <- gg + coord_equal()
+gg <- gg + labs(x=NULL, y=NULL, title="Visitas por día & hora")
+gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme(plot.title=element_text(hjust=0.1))
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(axis.text.y =element_text(size=12))
+gg <- gg + theme(axis.text.x =element_text(size=10))
+gg <- gg + theme(legend.title=element_text(size=10))
+gg <- gg + theme(legend.text=element_text(size=8))
+gg
+
+
+
+
+ggsave("sesiones_hora.jpg", path = "02-googleAnalyticsR_files/figure-html",
+       scale = 1, width = 12, height = 6, units = c("in", "cm", "mm"),
+       dpi = 320, limitsize = TRUE)
+
+
+#graph sesiones por hora y día de la semana
+
+
+
+title <- "Sesiones por día"
+subtitle <- "Los picos en las visitas coinciden con la publicación de los posts en el blog"
+
+
+
+ggplot(data=sesiones_por_dia, aes(x=date, y=sessions)) +
+  geom_line(stat="identity") +
+  labs(title = title, subtitle = subtitle, x = "", y = "sesiones") +
+  theme_ipsum() 
+
+
+
+### Sesiones por mes ###
+
+
+
+dd <- ggplot(sesiones_por_mes, aes(x = mes, y = sessions, fill = sessions,
+                                   label = sessions)) 
+dd <- dd +  geom_col()
+dd <- dd + labs(x="meses", y="sesiones", title="Sesiones por mes")
+dd <- dd + scale_fill_gradient_tableau(name = "# Sesiones")
+dd <- dd + theme(plot.title=element_text(hjust=0.1))
+dd <- dd + theme(axis.ticks=element_blank())
+dd <- dd + theme(axis.text=element_text(size=12))
+dd <- dd + theme(legend.title=element_text(size=10))
+dd <- dd + theme(legend.text=element_text(size=8))
+dd <- dd + theme_ipsum_rc()
+dd <- dd + theme_modern_rc()
+dd <- dd + geom_label(vjust = -0.5)
+dd <- dd + ylim(0,400)
+#dd <- dd + geom_label(fill = "white", vjust = -0.5)
+dd
+
+
+
+
+### sesiones por fuente, por mes ###
+
+
+
+
+ee <- ggplot(sesiones_fuente, aes(x = fuente, y = sessions, fill = sessions,
+                                   label = sessions)) 
+ee <- ee +  geom_col()
+ee <- ee + facet_wrap(~ mes) 
+ee <- ee + coord_flip()
+ee <- ee + labs(x="meses", y="sesiones", title="Sesiones por mes")
+ee <- ee + scale_fill_gradient_tableau(palette = "Orange", name = "# Sesiones")
+ee <- ee + theme(plot.title=element_text(hjust=0.1))
+ee <- ee + theme(axis.ticks=element_blank())
+ee <- ee + theme(axis.text=element_text(size=12))
+ee <- ee + theme(legend.title=element_text(size=10))
+ee <- ee + theme(legend.text=element_text(size=8))
+#ee <- ee + theme_ipsum_rc()
+#ee <- ee + theme_modern_rc()
+ee <- ee + theme_fivethirtyeight()
+ee <- ee + geom_label(hjust = -0.5)
+ee <- ee + ylim(0,200)
+#ee <- ee + geom_label(fill = "white", vjust = -0.5)
+ee
+

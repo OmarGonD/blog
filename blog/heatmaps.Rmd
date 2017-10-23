@@ -1,0 +1,227 @@
+---
+title: "Mapas de calor (Heatmaps)"
+author: ""
+date: "15 de octubre de 2016"
+output: 
+  html_document:
+    includes:
+      in_header: ../header.html
+      before_body: ../doc_prefix.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+</br>
+</br>
+
+En esta entrada quiero mostrarles qué son los mapas de calor o "heatmaps", uno de los tipos de gráficos más útiles que generalmente introduzco en temas de marketing digital. 
+
+Estos gráficos me permiten mostrar de forma clara y sencilla tendencias de los comportamiento de los usuarios por día y hora de la semana. Espero que, con esta entrada, puedan generar sus propios mapas de calor.
+
+
+
+
+</br>
+</br>
+
+```{r message = F, warning = F, echo=FALSE}
+
+library(highcharter)
+library(reshape2)
+
+
+
+### Data Frame con los datos
+
+sessions <- runif(168, 500, 1200)
+
+
+day <- rep(c("lunes", "martes", "miércoles", "jueves", "viernes","sábado", "domingo"),24)
+
+
+hour <- rep(00:23,7)
+
+
+### 
+
+df <- data.frame(day, hour, sessions)
+
+###
+
+
+df$day <- ordered(df$day, levels=c("lunes","martes","miércoles","jueves",
+                                     "viernes", "sábado","domingo")) 
+
+
+
+
+heatmap_recast <- dcast(df, day ~ hour, sum)
+
+
+
+### Remover la columna con los días de la semana, solo nos quedamos con las sesiones por hora
+
+
+heatmap_matrix <- as.matrix(heatmap_recast[-1])
+
+
+### Se colocan los días de la semana como nombres de fila
+
+row.names(heatmap_matrix) <- c("lunes","martes","miércoles",
+                               "jueves","viernes","sábado","domingo")
+
+
+
+
+## heatmap días de la semana y horas
+
+hchart(heatmap_matrix, type = "heatmap")
+
+
+```
+
+</br>
+</br>
+
+##Código:
+
+```{r message = F, warning = F, results="hide"}
+
+library(highcharter)
+library(reshape2)
+
+
+
+### Data Frame con los datos
+
+sessions <- runif(168, 500, 1200)
+
+
+day <- rep(c("lunes", "martes", "miércoles", "jueves", "viernes","sábado", "domingo"),24)
+
+
+hour <- rep(00:23,7)
+
+
+### 
+
+df <- data.frame(day, hour, sessions)
+
+###
+
+
+df$day <- ordered(df$day, levels=c("lunes","martes","miércoles","jueves",
+                                     "viernes", "sábado","domingo")) 
+
+
+
+
+heatmap_recast <- dcast(df, day ~ hour, sum)
+
+
+
+### Remover la columna con los días de la semana, solo nos quedamos con las sesiones por hora
+
+
+heatmap_matrix <- as.matrix(heatmap_recast[-1])
+
+
+### Se colocan los días de la semana como nombres de fila
+
+row.names(heatmap_matrix) <- c("lunes","martes","miércoles",
+                               "jueves","viernes","sábado","domingo")
+
+
+
+
+## heatmap días de la semana y horas
+
+hchart(heatmap_matrix, type = "heatmap")
+
+
+```
+
+
+</br>
+</br>
+
+Debemos transformar el data frame a este formato:
+
+En la primera columna los días de la semana, y en las siguientes las horas del día. 
+
+</br>
+</br>
+
+```{r message = F, warning = F, echo=FALSE}
+
+
+heatmap_recast[,1:12]
+
+
+```
+
+
+</br>
+</br>
+</br>
+
+#Heatmaps con _ggplot2_
+
+De igual manera podemos generar un mapa de calor con "ggplot2". Estos gráficos nos permiten conocer, también, de forma clara y sencilla la cantidad de visitas por día y hora de la semana. El gráfico resultante es ideal para presentaciones en PowerPoint o PDF.
+
+
+Utilizando el mismo _data frame_ que utilizado para el _heatmap_ dinmámico, vamos a crear el _heatmap_ en _ggplot2_:
+
+```{r message = F, warning = F, echo=FALSE}
+
+library(ggplot2)
+library(viridis)
+library(scales)
+library(ggthemes)
+
+gg <- ggplot(df, aes(x=hour, y=day, fill=sessions))
+gg <- gg + geom_tile(color="white", size=0.1)
+gg <- gg + scale_fill_viridis(name="# Visitas", label=comma)
+gg <- gg + coord_equal()
+gg <- gg + labs(x=NULL, y=NULL, title="Visitas por día & hora")
+gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme(plot.title=element_text(hjust=0.1))
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(axis.text=element_text(size=12))
+gg <- gg + theme(legend.title=element_text(size=10))
+gg <- gg + theme(legend.text=element_text(size=8))
+gg
+
+```
+
+
+##Código:
+
+```{r message = F, warning = F, eval=FALSE, results="false"}
+
+library(ggplot2)
+library(viridis)
+library(scales)
+library(ggthemes)
+
+gg <- ggplot(df, aes(x=hour, y=day, fill=sessions))
+gg <- gg + geom_tile(color="white", size=0.1)
+gg <- gg + scale_fill_viridis(name="# Visitas", label=comma)
+gg <- gg + coord_equal()
+gg <- gg + labs(x=NULL, y=NULL, title="Visitas por día & hora")
+gg <- gg + theme_tufte(base_family="Helvetica")
+gg <- gg + theme(plot.title=element_text(hjust=0.1))
+gg <- gg + theme(axis.ticks=element_blank())
+gg <- gg + theme(axis.text=element_text(size=12))
+gg <- gg + theme(legend.title=element_text(size=10))
+gg <- gg + theme(legend.text=element_text(size=8))
+gg
+
+```
+
+
+
+
+
