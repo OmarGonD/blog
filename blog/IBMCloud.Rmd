@@ -1,0 +1,143 @@
+---
+title: "IBM Cloud (ex Bluemix) - Primeros pasos"
+author: "omar gonzáles díaz"
+date: "4 de noviembre de 2017"
+output: 
+  html_document:
+    includes:
+      in_header: ../header.html
+      before_body: ../doc_prefix.html
+      after_body: ../after_body.html
+    code_folding: show
+    
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8,
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+
+
+
+
+
+```{r load_packages, include=FALSE}
+library(googleAnalyticsR)
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(scales)
+library(ggthemes)
+
+```
+
+
+</br>
+</br>
+</br>
+
+
+#Primeros pasos con IBM Cloud
+
+</br>
+</br>
+
+
+![](IBMCloud_files/figure-html/ibm-bluemix.jpg)
+
+
+
+
+
+En esta oportunidad quiero contarles sobre las opciones "cloud" de IBM `ex IBM Bluemix`.
+
+
+Diferenciar entre organización (oma.gonzales@gmail.com) y "target space" (dev)
+
+
+
+##Herramientas
+
+-Descargar Cloud Foundry CLI.
+-Descargar Bluemix CLI.
+
+
+
+
+
+
+# Login en IMB Cloud
+
+Esta parte fue dificil. Si usas Bluemix CLI, no lo combines con CL CLI.
+
+
+
+
+
+
+
+```{r eval=FALSE, engine='sh', include=TRUE}
+
+cf login -a https://api.ng.bluemix.net -u oma.gonzales@gmail.com -p DiosEsGrande
+
+
+```
+
+
+
+
+
+
+
+
+
+
+#Guía de aprendizaje de iniciación
+
+
+
+
+[Cloud Foundry LogIn](https://stackoverflow.com/questions/29831297/how-do-i-use-cloud-foundry-to-login-to-ibm-bluemix)
+
+
+
+1. Elige que tipo de aplicación básica vas a utilizar. En este caso elegimos Python.
+
+
+2. Luego se aplicarán los pasos mostrados en la guía:
+
+
+
+#Antes de empezar:
+
+Antes de empezar
+
+Necesitará lo siguiente:
+
+Cuenta de Bluemix
+CLI de Cloud Foundry
+Git 
+Python 
+
+
+
+Clonar tu aplicación desde Github.
+Pero como luego te pide hacer push, ya está connfigurado para el push a BX?
+
+```{r, engine='git'}
+
+git clone https://github.com/IBM-Bluemix/get-started-python
+
+
+```
+
+
+
+
+</br>
+</br>
+</br>
+
+
